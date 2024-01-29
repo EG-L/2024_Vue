@@ -20,4 +20,12 @@ public class FoodRestController {
 		String json = mapper.writeValueAsString(list);//Json 송신
 		return json;
 	}
+	// {키:값,키:값} => JSON
+	@GetMapping(value = "food/detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_detail_vue(int fno) throws Exception{
+		FoodVO vo = dao.fooDetailData(fno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
 }
