@@ -86,15 +86,15 @@
 				},
 				prev(){
 					this.curpage=this.startPage-1;
-					this.dataSend();
+					this.datafound();
 				},
 				next(){
 					this.curpage=this.endPage+1;
-					this.dataSend();
+					this.datafound();
 				},
 				pageChange(page){
 					this.curpage = page;
-					this.dataSend();
+					this.datafound();
 				}
 			}
 		}).mount('.container')
