@@ -48,14 +48,20 @@
 				<tr>
 					<td colspan="4" class="text-right">
 						<input type="button" value="수정" class="btn-success btn-xs" @click="update()">
-						<input type="button" value="삭제" class="btn-info btn-xs" @click="deleteData()" id="delBtn">
+						<input type="button" value="삭제" class="btn-info btn-xs" @click="deleteData()" id="delBtn" ref="delBtn">
 						<input type="button" value="목록" class="btn-warning btn-xs" @click="listData()">
 					</td>
 				</tr>
-				<tr id="del" style="display: none;">
+				<!-- <tr id="del" style="display: none;">
 					<td colspan=4 class="text-right">
 						비밀번호:<input type="password" class="input-sm" ref="pwd">
 						<input type="button" class="btn-sm btn-success" value="삭제">
+					</td>
+				</tr> -->
+				<tr v-show="isShow">
+					<td colspan=4 class="text-right">
+						비밀번호:<input type="password" class="input-sm" ref="pwd">
+						<input type="button" class="btn-sm btn-success" value="삭제" @click="boardDelete()">
 					</td>
 				</tr>
 			</table>
@@ -67,7 +73,8 @@
 				return{
 					board_detail:{},
 					no:${no},
-					change:0
+					change:0,
+					isShow:false
 				}
 			},
 			mounted(){
@@ -95,15 +102,44 @@
 				deleteData(){
 					if(this.change===0){
 						this.change=1;
-						$('#delBtn').val("취소");
-						$('#del').show();
+						/* $('#delBtn').val("취소");
+						$('#del').show(); */
+						this.isShow=true;
+						this.$refs.delBtn.value="취소"
 						
 					}
 					else{
 						this.change=0;
-						$('#delBtn').val("삭제");
-						$('#del').hide();
+						/* $('#delBtn').val("삭제");
+						$('#del').hide(); */
+						this.isShow=false;
+						this.$refs.delBtn.value="삭제"
 					}
+				},
+				boardDelete(){
+					let pwd = this.$refs.pwd.value;
+					if(pwd===''){
+						this.$refs.pwd.focus();
+						return;
+					}
+					axios.get('../board/delete_vue.do',{
+						params:{
+							no:this.no,
+							pwd:pwd
+						}
+					}).then(response=>{
+						console.log(response.data)
+						if(response.data==='yes'){
+							location.href='../board/list.do';
+						}
+						else{
+							alert("비밀번호가 틀렸습니다.");
+							this.$refs.pwd.value="";
+							this.$refs.pwd.foucs();
+						}
+					}).catch(error=>{
+						console.log(error.response)
+					})
 				}
 			}
 		}).mount('.container')

@@ -74,9 +74,16 @@ public class BoardRestController {
 		return json;
 	}
 	
-	@PostMapping(value = "board/update_ok.do", produces = "text/pain;charset=UTF-8")
+	@PostMapping(value = "board/update_ok.do", produces = "text/plain;charset=UTF-8")
 	public String board_update_ok(BoardVO vo) {
 		String result = dao.boardUpdate(vo);
+		return result;
+	}
+	
+	@GetMapping(value= "board/delete_vue.do", produces="text/plain;charset=UTF-8")
+	public String board_delete(int no, String pwd) {
+		String result = dao.boardDelete(no, pwd);
+		
 		return result;
 	}
 }
