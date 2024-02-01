@@ -36,4 +36,10 @@ public class DataBoardDAO {
 	public void databoardInsert(DataBoardVO vo) {
 		mapper.databoardInsert(vo);
 	}
+	
+	public DataBoardVO databoardDetailData(int no) {
+		mapper.hitIncrement(no);
+		
+		return mapper.databoardDetailData(no);
+	}
 }
