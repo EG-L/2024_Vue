@@ -12,7 +12,7 @@
 	     </init-param> -->
 	  	<init-param>
 	  		<param-name>contextClass</param-name>
-	  		<param-value>org.springframework.web.context.support.AnnotationConfigApplicationContext</param-value>
+	  		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 	  	</init-param>
 	  	<init-param>
 	  		<param-name>contextConfigLocation</param-name>
