@@ -1,6 +1,7 @@
 package com.sist.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 /*
  *  => 화면 변경 / 다운로드
  *     String / void
@@ -14,6 +15,11 @@ public class FoodController {
 	@GetMapping("food/list.do")
 	public String food_list() {
 		return "food/list";
+	}
+	@GetMapping("food/detail.do")
+	public String food_detail(int fno,Model model) {
+		model.addAttribute("fno",fno);
+		return "food/detail";
 	}
 	
 }

@@ -9,34 +9,44 @@
 		4. 보안 등록
 	 -->
 	<servlet>
-		<servlet-name>dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- 
-			클래스를 등록 = 스프링에 의해서 관리 => WebApplicationContext
-					                      XML / JAVA
-		 -->
-		 <init-param>
-		 	<param-name>contextConfigLocation</param-name>
-		 	<param-value>/WEB-INF/config/application-*.xml</param-value>
-		 </init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
-	<!-- 한글을 사용하지 않는다 :HttpServletRequest 
-		 request.setCharacterEncoding("UTF-8")
-	-->
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<filter-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</filter-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<filter-pattern>/*</filter-pattern>
-	</filter-mapping>
+	     <servlet-name>dispatcher</servlet-name>
+	     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	     <init-param>
+	         <param-name>contextConfigLocation</param-name>
+	         <param-value>/WEB-INF/config/application-*.xml</param-value>
+	     </init-param>
+	  	<!-- <init-param>
+	  		<param-name>contextClass</param-name>
+	  		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	  	</init-param>
+	  	<init-param>
+	  		<param-name>contextConfigLocation</param-name>
+	  		<param-value>com.sist.config.BoardConfig</param-value>
+	  	</init-param> -->
+	 </servlet>
+	 <servlet-mapping>
+	     <servlet-name>dispatcher</servlet-name>
+	     <url-pattern>*.do</url-pattern>
+	 </servlet-mapping>
+	 
+	 <!-- Encoding Filter 생성 -->
+	 <!-- 한글 변환 -->
+	 <filter>
+	     <filter-name>encodingFilter</filter-name>
+	     <filter-class>
+	         org.springframework.web.filter.CharacterEncodingFilter
+	     </filter-class>
+	     <init-param>
+	         <param-name>encoding</param-name>
+	         <param-value>UTF-8</param-value>
+	     </init-param>
+	     <init-param>
+	         <param-name>forceEncoding</param-name>
+	         <param-value>true</param-value>
+	     </init-param>
+	 </filter>
+	 <filter-mapping>
+	     <filter-name>encodingFilter</filter-name>
+	     <url-pattern>/*</url-pattern>
+	 </filter-mapping>
 </web-app>
