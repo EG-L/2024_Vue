@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- 톰캣 URL => 서블릿 찾기
+		1. Controller 등록
+		2. 한글변환 코드
+		3. 에러 처리 = (종류별)
+		4. 보안 등록
+	 -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 
+			클래스를 등록 = 스프링에 의해서 관리 => WebApplicationContext
+					                      XML / JAVA
+		 -->
+		 <init-param>
+		 	<param-name>contextConfigLocation</param-name>
+		 	<param-value>/WEB-INF/config/application-*.xml</param-value>
+		 </init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<!-- 한글을 사용하지 않는다 :HttpServletRequest 
+		 request.setCharacterEncoding("UTF-8")
+	-->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</filter-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<filter-pattern>/*</filter-pattern>
+	</filter-mapping>
+</web-app>
