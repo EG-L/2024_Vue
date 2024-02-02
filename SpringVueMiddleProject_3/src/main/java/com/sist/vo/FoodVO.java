@@ -25,6 +25,6 @@ import lombok.Data;
 public class FoodVO {
 	private int fno;
 	private double score;
-	private String poster,name,type,address,phone,theme,price,time,seat;
+	private String poster,name,type,address,phone,theme,price,time,seat,sessionId;
 	
 }

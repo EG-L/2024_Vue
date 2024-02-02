@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 // simple-json => 직접 JSON을 만드는 과정 => 자동 완성 (Jackson)
 // jackson => JSON (자바스크립트 객체 표현법) {"키":값}
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
+
 import com.sist.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.FoodDAO;
@@ -52,8 +55,17 @@ public class FoodRestController {
 	}
 	
 	@GetMapping(value="food/detail_vue.do",produces = "text/plain;charset=UTF-8")
-	public String food_detail(int fno) throws Exception{
+	public String food_detail(int fno,HttpSession session) throws Exception{
+		String id = (String)session.getAttribute("id");
 		FoodVO vo = service.foodDetailData(fno);
+		String sId="";
+		if(id==null) {
+			sId="";
+		}
+		else {
+			sId=id;
+		}
+		vo.setSessionId(sId);//임시저장 => 댓글 사용 시 수정 및 삭제
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);

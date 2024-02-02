@@ -26,7 +26,8 @@
  -->
 </head>
 <body>
-	<div class="container">
+	<jsp:include page="${login_jsp }"></jsp:include>
+	<div class="container" id="listApp">
 		<div class="row">
 				<div class="col-md-3" v-for="vo in food_list">
 					<a :href="'../food/detail.do?fno='+vo.fno">
@@ -117,7 +118,8 @@
 			updated(){
 				//상태 변경 시 사용 => 데이터(data()에 있는 데이터값이 변경)
 			}
-		}).mount('.container')
+		}).mount('#listApp')
+
 	</script>
 </body>
 </html>
