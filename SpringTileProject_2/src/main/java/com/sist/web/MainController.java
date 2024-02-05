@@ -10,13 +10,4 @@ public class MainController {
 		return "main";
 	}
 	
-	@GetMapping("board/list.do")
-	public String board_list() {
-		return "board/list";
-	}
-	
-	@GetMapping("notice/list.do")
-	public String notice_list() {
-		return "notice/list";
-	}
 }
