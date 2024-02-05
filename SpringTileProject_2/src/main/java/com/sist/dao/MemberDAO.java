@@ -30,6 +30,7 @@ public class MemberDAO {
 				vo.setMsg("NOPWD");
 			}
 		}
+		System.out.println(vo.getMsg());
 		return vo;
 	}
 }

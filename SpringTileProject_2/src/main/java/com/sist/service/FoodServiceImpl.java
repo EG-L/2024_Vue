@@ -14,6 +14,9 @@ public class FoodServiceImpl implements FoodService{
 	@Autowired
 	private MemberDAO mdao;
 	
+	@Autowired
+	private ReplyDAO rdao;
+	
 	@Override
 	public List<FoodVO> foodListData(int start, int end) {
 		// TODO Auto-generated method stub
@@ -33,7 +36,27 @@ public class FoodServiceImpl implements FoodService{
 	}
 	
 	//ReplyDAO
-	
+	@Override
+	public List<ReplyVO> replyListData(int fno) {
+		// TODO Auto-generated method stub
+		return rdao.replyListData(fno);
+	}
+
+	@Override
+	public void replyInsert(ReplyVO vo) {
+		// TODO Auto-generated method stub
+		rdao.replyInsert(vo);
+	}
+	@Override
+	public void replyDelete(int rno) {
+		// TODO Auto-generated method stub
+		rdao.replyDelete(rno);
+	}
+	@Override
+	public void replyUpdate(ReplyVO vo) {
+		rdao.replyUpdate(vo);
+		// TODO Auto-generated method stub
+	}
 	//Member관련
 	@Override
 	public MemberVO isLogin(String id, String pwd) {

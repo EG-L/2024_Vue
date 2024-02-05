@@ -28,15 +28,15 @@
 		<div class="row">
 			<c:if test="${sessionScope.id==null}">
 				<div class="text-right">
-					ID: <input type="text" class="input-sm" v-model="id">&nbsp;
-					PW: <input type="password" class="input-sm" v-model="pwd">&nbsp;
-					<input type="button" value="로그인" class="btn-sm btn-primary">
+					ID: <input type="text" class="input-sm" v-model="id" ref="id">&nbsp;
+					PW: <input type="password" class="input-sm" v-model="pwd" ref="pwd">&nbsp;
+					<input type="button" value="로그인" class="btn-sm btn-primary" @click="login()">
 				</div>
 			</c:if>
 			<c:if test="${sessionScope.id!=null}">
 				<div class="text-right">
 					${sessionScope.name }님 로그인중입니다.&nbsp;
-					<input type="button" value="로그아웃" class="btn-sm btn-danger">
+					<input type="button" value="로그아웃" class="btn-sm btn-danger" @click="logout()">
 				</div>
 			</c:if>
 		</div>
@@ -47,13 +47,50 @@
 			data(){
 				return{
 					id:'',
-					
+					pwd:''
 				}
 			},
 			methods:{
-				
+				login(){
+					if(this.id===""){
+						this.$refs.id.focus();
+						return;
+					}
+					if(this.pwd===""){
+						this.$refs.pwd.focus();
+						return;
+					}
+					
+					axios.get('../member/login_vue.do',{
+						params:{
+							id:this.id,
+							pwd:this.pwd
+						}
+					}).then(response=>{
+						console.log(response.data)
+						if(response.data==="NOID"){
+							alert("아이디가 존재하지 않습니다.")
+							this.$refs.id='';
+							this.$refs.pwd='';
+							this.$refs.id.focus();
+						}
+						else if(response.data==="NOPWD"){
+							alert("비밀번호가 틀렸습니다.")
+							this.$refs.pwd='';
+							this.$refs.pwd.focus();
+						}
+						else{
+							location.href="../main/main.do"
+						}
+					})
+				},
+				logout(){
+					axios.get('../member/logout_vue.do').then(response=>{
+						location.href="../main/main.do"
+					})
+				}
 			}
-		})
+		}).mount('#logApp')
 	</script>
 </body>
 </html>
