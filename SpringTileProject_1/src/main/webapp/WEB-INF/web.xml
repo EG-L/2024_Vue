@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- 톰캣에 의해서 Controller 호출 => request와 response 등록 
+		  => 이미 세팅이 완료( Spring에 맞춰서 셋팅)
+		    1. web.xml => 한글 변환 , 컨트롤러 등록
+		    2. 사용자 정의 클래스 / 라이브러리 클래스 등록 ==> config/application-*.xml
+		    3. Model(요청 처리) 등록
+		       => @GetMapping / @PostMapping / @RequestMapping
+		       => 리턴형 : String / void
+		       => 매개변수 : getParameter(),내장객체 사용 가능
+		                                 => HttpServletRequest
+		                                 => HttpServletResponse
+		                                 => HttpSession
+		                                 => RedirectAttributes
+		                                 => Model = 전송 객체
+		       => 화면 변경 
+		          = return "경로명/jsp명"; => forward => model.addAttribute()
+		          = return "redirect:..do" => sendredirect
+		    4. JSP => EL/JSTL
+		    5. 자바스크립트 연동 시 ==> @RestController
+	-->
+	<!-- Processes application requests -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/application-*.xml</param-value>
+		</init-param>
+	</servlet>
+	<!-- 
+		.do ======= DispatcherServlet ====================> ViewResolver
+		 요청          WebApplicationContext(클래스 관리)
+		              HandlerMapping( 클래스 찾기 )
+	 -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Encoding Filter 생성 -->
+	 <!-- 한글 변환 -->
+	 <filter>
+	     <filter-name>encodingFilter</filter-name>
+	     <filter-class>
+	         org.springframework.web.filter.CharacterEncodingFilter
+	     </filter-class>
+	     <init-param>
+	         <param-name>encoding</param-name>
+	         <param-value>UTF-8</param-value>
+	     </init-param>
+	     <init-param>
+	         <param-name>forceEncoding</param-name>
+	         <param-value>true</param-value>
+	     </init-param>
+	 </filter>
+	 <filter-mapping>
+	     <filter-name>encodingFilter</filter-name>
+	     <url-pattern>/*</url-pattern>
+	 </filter-mapping>
+</web-app>
