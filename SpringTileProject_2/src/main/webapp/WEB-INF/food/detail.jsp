@@ -172,8 +172,8 @@
 					
 				},
 				replyupdate(rno){
-					let msg=$('#msg'+rno).value();
-					axios.get('../reply/upate_vue.do',{
+					let msg=$('#msg'+rno).val();
+					axios.get('../reply/update_vue.do',{
 						params:{
 							rno:rno,
 							fno:this.fno,
