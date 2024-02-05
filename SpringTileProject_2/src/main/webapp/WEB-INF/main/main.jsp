@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
 	.container{
 		margin-top:20px;
@@ -26,8 +28,8 @@
 		<div class="row">
 			<c:if test="${sessionScope.id==null}">
 				<div class="text-right">
-					ID: <input type="text" class="input-sm">&nbsp;
-					PW: <input type="password" class="input-sm">&nbsp;
+					ID: <input type="text" class="input-sm" v-model="id">&nbsp;
+					PW: <input type="password" class="input-sm" v-model="pwd">&nbsp;
 					<input type="button" value="로그인" class="btn-sm btn-primary">
 				</div>
 			</c:if>
@@ -40,5 +42,18 @@
 		</div>
 	</div>
 	<tiles:insertAttribute name="home"/>
+	<script>
+		let logApp = Vue.createApp({
+			data(){
+				return{
+					id:'',
+					
+				}
+			},
+			methods:{
+				
+			}
+		})
+	</script>
 </body>
 </html>

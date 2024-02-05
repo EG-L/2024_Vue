@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 public class FoodServiceImpl implements FoodService{
 	@Autowired
 	private FoodDAO dao;
-
+	
+	@Autowired
+	private MemberDAO mdao;
+	
 	@Override
 	public List<FoodVO> foodListData(int start, int end) {
 		// TODO Auto-generated method stub
@@ -31,4 +34,10 @@ public class FoodServiceImpl implements FoodService{
 	
 	//ReplyDAO
 	
+	//Member관련
+	@Override
+	public MemberVO isLogin(String id, String pwd) {
+		// TODO Auto-generated method stub
+		return mdao.isLogin(id, pwd);
+	}
 }
