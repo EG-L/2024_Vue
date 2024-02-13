@@ -19,4 +19,8 @@ public class FoodDAO {
 	public int foodFindCount(Map map) {
 		return mapper.foodFindCount(map);
 	}
+	
+	public FoodVO foodDetailData(int fno) {
+		return mapper.foodDetailData(fno);
+	}
 }
