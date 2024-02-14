@@ -10,7 +10,7 @@
 	<div class="wrapper row1">
   <header id="header" class="clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="index.html">실시간 맛집 추천</a></h1>
+      <h1><a href="../main/main.do">실시간 맛집 추천</a></h1>
     </div>
     <div class="fl_right">
       <ul class="inline">
@@ -23,7 +23,7 @@
 <div class="wrapper row2">
   <nav id="mainav" class="clear"> 
     <ul class="clear">
-      <li class="active"><a href="index.html">Home</a></li>
+      <li class="active"><a href="../main/main.do">Home</a></li>
       <li><a class="drop" href="#">회원</a>
         <ul>
           <li><a href="pages/gallery.html">회원가입</a></li>
@@ -33,7 +33,7 @@
       </li>
       <li><a class="drop" href="#">맛집</a>
         <ul>
-          <li><a href="pages/gallery.html">맛집 목록</a></li>
+          <li><a href="../food/food_list.do">맛집 목록</a></li>
           <li><a href="../food/food_find.do">맛집 찾기</a></li>
           <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
           <li><a href="pages/sidebar-right.html">맛집 예약</a></li>
@@ -57,7 +57,8 @@
       </li>
       <li><a href="#">실시간 채팅</a></li>
       <li><a href="#">마이페이지</a></li>
-      <li><a href="#">관리자페이지</a></li>
+      <!-- <li><a href="#">관리자페이지</a></li> -->
+      <li class="nav navbar-nav navbar-right"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </nav>
 </div>

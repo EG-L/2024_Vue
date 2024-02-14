@@ -137,4 +137,48 @@ public class FoodRestController {
 		
 		return json;
 	}
+	
+	@GetMapping(value = "food_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_list(int page) throws Exception{
+		Map map = new HashMap();
+		map.put("start", (20*page)-(20-1));
+		map.put("end", (20*page));
+		
+		List<FoodVO> list = service.foodListData(map);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	@GetMapping(value = "food_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_list_page(int page) throws Exception{
+		int totalpage = service.foodListCount();
+		
+		int BLOCK = 10;
+		int startPage = ((page-1)/BLOCK*BLOCK)+1;
+		int endPage = ((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) endPage=totalpage;
+		
+		Map map = new HashMap();
+		map.put("curpage", page);
+		map.put("totalpage", totalpage);
+		map.put("endPage", endPage);
+		map.put("startPage",startPage);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(map);
+		
+		return json;
+	}
+	
+	@GetMapping(value="food_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_detail_list(int fno) throws Exception{
+		
+		FoodVO vo = service.foodListDetailData(fno);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		
+		return json;
+	}
 }

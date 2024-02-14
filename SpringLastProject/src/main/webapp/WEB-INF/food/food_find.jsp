@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -41,8 +39,8 @@
 		          <li v-if="endPage<totalpage" @click="next()"><a class="link">Next &raquo;</a></li>
 		        </ul>
 		      </nav>
-		      <div id="dialog" title="맛집 상세보기">
-		      	<detail_dialog v-show="isShow" :food_detail="food_detail"></detail_dialog>
+		      <div id="dialog" title="맛집 상세보기"  v-show="isShow">
+		      	<detail_dialog :food_detail="food_detail"></detail_dialog>
 		      </div>
 		    </div>
 		    <div class="clear"></div>

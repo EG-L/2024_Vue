@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,31 +13,27 @@
     <div class="one_third first">
       <h6 class="title">인기 공지</h6>
       <ul class="nospace linklist">
-        <li><a href="#">Home Page</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Contact Us</a></li>
+      	<c:forEach var="vo" items="${nList }">
+      		<li><a href="#">${vo.subject }</a></li>
+      	</c:forEach>
       </ul>
     </div>
     <div class="one_third">
       <h6 class="title">실시간 인기 맛집</h6>
       <ul class="nospace linklist">
-        <li><a href="#">Home Page</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Contact Us</a></li>
+      	<c:forEach var="vo" items="${fList }">
+      		<li><a href="#">${vo.name }</a></li>
+      	</c:forEach>
       </ul>
     </div>
     <div class="one_third">
       <h6 class="title">레시피 뉴스</h6>
       <ul class="nospace linklist">
-        <li><a href="#">Home Page</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <c:forEach var="vo" items="${newList }" varStatus="s">
+      		<c:if test="${s.index<7 }">
+      			<li><a href="${vo.link }">${vo.title }</a></li>
+      		</c:if>
+      	</c:forEach>
       </ul>
     </div>
     
