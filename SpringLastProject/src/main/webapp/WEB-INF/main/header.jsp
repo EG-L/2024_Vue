@@ -46,7 +46,7 @@
           <li><a href="../recipe/chef_list.do">쉐프</a></li>
           <li><a href="pages/full-width.html">오늘의 레시피</a></li>
           <li><a href="pages/sidebar-left.html">오늘의 쉐프</a></li>
-          <li><a href="pages/sidebar-right.html">레시피 만들기</a></li>
+          <li><a href="../recipe/recipe_test.do">레시피 만들기</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">커뮤니티</a>

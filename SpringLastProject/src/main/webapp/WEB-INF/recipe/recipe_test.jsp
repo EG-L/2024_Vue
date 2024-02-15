@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,13 +19,13 @@
 <body>
 	<div class="wrapper row3">
   <main class="container clear"> 
-    <div class="content" id="foodApp"> 
+    <div class="content" id="recipeApp"> 
       <div id="gallery">
         <figure>
-          <h3>맛집 목록</h3>
-          <header class="heading"></header>
+          <h3>레시피 목록</h3>
+          <header class="heading">총 <span style="font-size: 20px;color:green">{{count.toLocaleString()}}</span>개의 맛있는 레시피가 있습니다.</header>
           <ul class="nospace clear">
-            <li v-for="(vo,index) in food_list" :class="index%4==0?'one_quarter first':'one_quarter'"><a :href="'../food/food_before_list_detail.do?fno='+vo.fno"><img :src="'http://www.menupan.com/'+vo.poster" :title="vo.name" alt=""></a></li>
+            <li v-for="(vo,index) in recipe_list" :class="index%4==0?'one_quarter first':'one_quarter'"><a :href="'../recipe/recipe_detail.do?no='+vo.no"><img :src="vo.poster" :title="vo.title" alt=""></a></li>
           </ul>
           <figcaption></figcaption>
         </figure>
@@ -36,15 +37,8 @@
           <li v-if="endPage<totalpage"><a @click="next()" class="link">Next &raquo;</a></li>
         </ul>
       </nav>
-      <div class="clear"></div>
-    <div>
-    	<h3>최근 방문 맛집</h3>
-    	<hr>
-    	<span v-for="vo in cookie_list">
-    		<a :href="'../food/food_list_detail.do?fno='+vo.fno"><img :src="'http://www.menupan.com/'+vo.poster" style="width:100px;height:100px;margin-left:5px;"></a>
-    	</span>
     </div>
-    </div>
+    <div class="clear"></div>
   </main>
 </div>
 <script>
@@ -52,12 +46,12 @@
 		//데이터 관리 => 멤버 변수 => this.
 		data(){
 			return{
-				food_list:[],
+				recipe_list:[],
 				curpage:1,
 				totalpage:0,
 				startPage:0,
 				endPage:0,
-				cookie_list:[]
+				count:0
 			}
 		},
 		//시작과 동시에 처리
@@ -85,31 +79,20 @@
 		methods:{
 			//공통으로 사용되는 함수 => 반복제거
 			dataRecv(){
-				axios.get('../food/food_list_vue.do',{
+				axios.get('../recipe/recipe_test_vue.do',{
 					params:{
 						page:this.curpage
 					}
 				}).then(res=>{
 					console.log(res.data)
-					this.food_list=res.data
+					this.recipe_list=res.data.list;
+					this.curpage = res.data.pages.curpage;
+					this.totalpage = res.data.pages.totalpage;
+					this.startPage = res.data.pages.startPage;
+					this.endPage = res.data.pages.endPage;
+					this.count = res.data.pages.count;
 				})
-				
-				axios.get('../food/food_page_vue.do',{
-					params:{
-						page:this.curpage
-					}
-				}).then(res=>{
-					console.log(res.data)
-					this.curpage = res.data.curpage;
-					this.totalpage = res.data.totalpage;
-					this.startPage = res.data.startPage;
-					this.endPage = res.data.endPage;
-				})
-				
-				axios.get('../food/food_cookie_vue.do').then(res=>{
-					console.log(res.data)
-					this.cookie_list=res.data
-				})
+
 			},
 			range(start,end){
 				let arr=[]
@@ -133,7 +116,7 @@
 				this.dataRecv()
 			}
 		}
-	}).mount('#foodApp')
+	}).mount('#recipeApp')
 </script>
 </body>
 </html>
