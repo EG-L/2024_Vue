@@ -66,5 +66,11 @@ public class FoodServiceImpl implements FoodService{
 		// TODO Auto-generated method stub
 		return fDao.foodTop7();
 	}
+
+	@Override
+	public List<FoodVO> foodHome12() {
+		// TODO Auto-generated method stub
+		return fDao.foodHome12();
+	}
 	
 }
