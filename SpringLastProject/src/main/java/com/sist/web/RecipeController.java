@@ -17,6 +17,8 @@ public class RecipeController {
 	}
 	@GetMapping(value = "recipe/chef_detail.do",produces = "text/plain;charset=UTF-8")
 	public String chef_detail(int cno,Model model) {
+		model.addAttribute("cno",cno);
+		
 		return "recipe/chef_detail";
 	}
 }

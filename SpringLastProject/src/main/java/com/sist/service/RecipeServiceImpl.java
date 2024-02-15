@@ -68,4 +68,16 @@ public class RecipeServiceImpl implements RecipeService{
 		// TODO Auto-generated method stub
 		return rDao.chefDetailTotalPage(cno);
 	}
+
+	@Override
+	public List<RecipeVO> chefDetailFindData(Map map) {
+		// TODO Auto-generated method stub
+		return rDao.chefDetailFindData(map);
+	}
+
+	@Override
+	public int chefDetailFindTotalPage(Map map) {
+		// TODO Auto-generated method stub
+		return rDao.chefDetailFindTotalPage(map);
+	}
 }

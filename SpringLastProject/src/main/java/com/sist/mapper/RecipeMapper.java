@@ -74,4 +74,15 @@ public interface RecipeMapper {
 	@Select("SELECT CEIL(COUNT(*)/20) FROM recipe "
 			+ "WHERE chef=(SELECT chef FROM chef WHERE cno=#{cno})")
 	public int chefDetailTotalPage(int cno);
+	
+	@Select("SELECT no,title,poster,chef,num "
+			+ "FROM (SELECT no,title,poster,chef,rownum as num "
+			+ "FROM (SELECT no,title,poster,chef "
+			+ "FROM recipe WHERE chef=(SELECT chef FROM chef WHERE cno=#{cno} AND REGEXP_LIKE(title,#{title})))) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<RecipeVO> chefDetailFindData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/20) FROM recipe "
+			+ "WHERE chef=(SELECT chef FROM chef WHERE cno=#{cno} AND REGEXP_LIKE(title,#{title}))")
+	public int chefDetailFindTotalPage(Map map);
 }
