@@ -170,4 +170,25 @@ public class RecipeRestController {
 		
 		return json;
 	}
+	
+	@GetMapping(value = "recipe/recipe_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String recipe_detail(int no) throws Exception{
+		RecipeDetailVO vo = rService.recipeDetailData(no);
+		String s = vo.getStuff();
+		s = s.replace("구매", "");
+		vo.setStuff(s);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "recipe/goods_vue.do",produces = "text/plain;charset=UTF-8")
+	public String recipe_goods(String stuff) throws Exception{
+		List<GoodsVO> list = rService.recipeGoodsData(stuff);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
 }

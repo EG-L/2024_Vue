@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.sist.vo.ChefVO;
+import com.sist.vo.GoodsVO;
+import com.sist.vo.RecipeDetailVO;
 import com.sist.vo.RecipeVO;
 
 public interface RecipeMapper {
@@ -40,17 +42,22 @@ public interface RecipeMapper {
 	public List<RecipeVO> RecipeHome12();
 	
 	// 목록 출력
-	@Select("SELECT COUNT(*) FROM recipe")
+	@Select("SELECT COUNT(*) FROM recipe "
+			+ "WHERE no IN(SELECT no FROM recipe "
+			+ "INTERSECT SELECT no FROM recipeDetail)")
 	public int recipeCount();
 	
 	@Select("SELECT no,title,poster,num "
 			+ "FROM (SELECT no,title,poster,rownum as num "
 			+ "FROM (SELECT /*+ INDEX_ASC(recipe recipe_no_pk)*/no,title,poster "
-			+ "FROM recipe)) "
+			+ "FROM recipe WHERE no IN(SELECT no FROM recipe "
+			+ "INTERSECT SELECT no FROM recipeDetail)"
+			+ ")) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<RecipeVO> recipeListData(@Param("start") int start,@Param("end") int end);
 	
-	@Select("SELECT CEIL(COUNT(*)/20) FROM recipe")
+	@Select("SELECT CEIL(COUNT(*)/20) FROM recipe WHERE no IN(SELECT no FROM recipe "
+			+ "INTERSECT SELECT no FROM recipeDetail)")
 	public int recipeTotalPage();
 	// 상세보기
 	// 쉐프 목록
@@ -85,4 +92,13 @@ public interface RecipeMapper {
 	@Select("SELECT CEIL(COUNT(*)/20) FROM recipe "
 			+ "WHERE chef=(SELECT chef FROM chef WHERE cno=#{cno} AND REGEXP_LIKE(title,#{title}))")
 	public int chefDetailFindTotalPage(Map map);
+	
+	@Select("SELECT * FROM recipeDetail "
+			+ "WHERE no=#{no}")
+	public RecipeDetailVO recipeDetailData(int no);
+	
+	@Select("SELECT goods_poster,goods_name,goods_price "
+			+ "FROM goods_all "
+			+ "WHERE REGEXP_LIKE(goods_name,#{goods_name})")
+	public List<GoodsVO> recipeGoodsData(String goods_name);
 }

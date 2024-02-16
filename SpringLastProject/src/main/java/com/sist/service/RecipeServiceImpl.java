@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.sist.dao.RecipeDAO;
 import com.sist.vo.ChefVO;
+import com.sist.vo.GoodsVO;
+import com.sist.vo.RecipeDetailVO;
 import com.sist.vo.RecipeVO;
 
 @Service
@@ -79,5 +81,17 @@ public class RecipeServiceImpl implements RecipeService{
 	public int chefDetailFindTotalPage(Map map) {
 		// TODO Auto-generated method stub
 		return rDao.chefDetailFindTotalPage(map);
+	}
+
+	@Override
+	public RecipeDetailVO recipeDetailData(int no) {
+		// TODO Auto-generated method stub
+		return rDao.recipeDetailData(no);
+	}
+
+	@Override
+	public List<GoodsVO> recipeGoodsData(String goods_name) {
+		// TODO Auto-generated method stub
+		return rDao.recipeGoodsData(goods_name);
 	}
 }
