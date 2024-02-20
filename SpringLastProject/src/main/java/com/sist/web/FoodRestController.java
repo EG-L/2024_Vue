@@ -254,7 +254,6 @@ public class FoodRestController {
 		
 		List<String> fList = service.foodAllData();
 		
-		Pattern[] p = new Pattern[fList.size()];
 		/*
 		 * 	1. 단어 => contains()
 		 *  2. 기호 : * (0이상)     맛있다, 맛있고 , 맛있는 => 맛*
@@ -262,11 +261,45 @@ public class FoodRestController {
 		 *           ? (0,1)
 		 *           | (선택)
 		 *           . 임의의 한글자 맛.
+		 *           ==> 실제 기호 : \\+
+		 *           [] => 범위
+		 *              숫자 [0-3] => [0-9]
+		 *              영문 [A-Z] [a-z] => [A-Za-z]
+		 *              한글 [가-힣]
+		 *           {} => 갯수
+		 *           {3} , {1,3}
+		 *           [0-9]{1,3}\\,[0-9]{1,3}\\,[0-9]{1,3}\\,[0-9]{1,3}\\,[0-9]{1,3} : IP
+		 *           ^ : startswith => ^[가-힣] => 한글 시작
+		 *                             [^가-힣] => 한글 제외
+		 *           $ : endswith   => [가-힣]$ => 한글로 종료
 		 * */
 		
-		Matcher[] m = new Matcher[fList.size()];
 		// 초기화 => 정규식
+		//
+		List<String> rList = new ArrayList<String>();
+		for(String s:list) {// 추천
+			for(int i =0;i<fList.size();i++) {
+				if(s.contains(fList.get(i))) {
+					System.out.println(fList.get(i));
+					rList.add(fList.get(i));
+				}
+			}
+		}
 		
-		return "";
+		Set<String> set = new HashSet<String>(rList);         // Set을 List로 변경        
+		List<String> newList =new ArrayList<String>(set);
+		List<FoodVO> dList = new ArrayList<FoodVO>();
+		 for(int i =0;i<newList.size();i++) {
+			 System.out.println(newList.get(i)+":"+Collections.frequency(rList, newList.get(i)));
+			 List<FoodVO> vo = service.foodNameInfoData(newList.get(i));
+			 
+			 dList.add(vo.get(0));
+		 }
+		 
+		 ObjectMapper mapper = new ObjectMapper();
+		 String json = mapper.writeValueAsString(dList);
+		 
+		
+		return json;
 	}
 }

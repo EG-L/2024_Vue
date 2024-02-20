@@ -48,4 +48,8 @@ public class FoodDAO {
 	public List<String> foodAllData(){
 		return mapper.foodAllData();
 	}
+	
+	public List<FoodVO> foodNameInfoData(String name) {
+		return mapper.foodNameInfoData(name);
+	}
 }

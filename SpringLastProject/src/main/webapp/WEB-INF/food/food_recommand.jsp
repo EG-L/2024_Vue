@@ -31,6 +31,15 @@
   					</td>
   				</tr>
   			</table>
+  			<div class="content"> 
+		      <div id="gallery">
+		        <figure>
+		          <ul class="nospace clear">
+		            <li v-for="(vo,index) in food_list" :class="index%4===0?'one_quarter first':'one_quarter'"><img class="img_click" :src="'http://www.menupan.com/'+vo.poster" :title="vo.name"></li>
+		          </ul>
+		        </figure>
+		      </div>
+		    </div>
   		</main>
   	</div>
   	<script>
