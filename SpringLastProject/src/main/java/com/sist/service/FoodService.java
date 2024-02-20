@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.sist.vo.FoodVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.RecipeVO;
 
 public interface FoodService {
 	public List<FoodVO> foodFindData(Map map);
@@ -18,4 +19,5 @@ public interface FoodService {
 	public List<FoodVO> foodHome12();
 	public List<String> foodAllData();
 	public List<FoodVO> foodNameInfoData(String name);
+	public List<RecipeVO> foodRecipeData(String title);
 }

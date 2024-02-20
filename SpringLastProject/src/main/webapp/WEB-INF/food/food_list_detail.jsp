@@ -72,6 +72,18 @@
 	    </div>
 	    <!-- / main body -->
 	    <div class="clear"></div>
+	    <h2 class="sectiontitle">관련 레시피</h2>
+	    <div class="row">
+	    	<div class="col-md-3" v-for="r in recipe_list">
+		    <div class="thumbnail">
+		      <a :href="'../recipe/recipe_detail.do?no='+r.no">
+		        <img :src="r.poster" style="width:100%">
+		        <div class="caption">
+		          <p style="overflow: hidden;text-overflow:ellipsis;white-space:nowrap;">{{r.title}}</p>
+		        </div>
+		      </a>
+		    </div>
+	    </div>
 	  </main>
 	</div>
 	<script>
@@ -79,7 +91,9 @@
 			data(){
 				return{
 					food_detail:{},
-					fno:${fno}
+					fno:${fno},
+					food_type:'',
+					recipe_list:[]
 				}
 			},
 			mounted(){
@@ -90,6 +104,17 @@
 				}).then(res=>{
 					console.log(res.data)
 					this.food_detail=res.data
+					this.food_type = res.data.type
+					
+					axios.get('../food/food_detail_recipe.do',{
+						params:{
+							fno:this.fno,
+							type:this.food_type
+						}
+					}).then(res=>{
+						console.log(this.food_type)
+						this.recipe_list=res.data
+					})
 					
 					if(window.kakao && window.kakao.maps){
 						this.initMap()
@@ -98,6 +123,7 @@
 						this.addScript()
 					}
 				})
+				
 			},
 			methods:{
 				addScript(){

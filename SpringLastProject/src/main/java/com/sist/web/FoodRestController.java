@@ -302,4 +302,16 @@ public class FoodRestController {
 		
 		return json;
 	}
+	
+	@GetMapping(value = "food_detail_recipe.do",produces = "text/plain;charset=UTF-8")
+	public String food_detail_recipe(int fno,String type) throws Exception{
+		System.out.println(type);
+		String s = type.replace("/", "|");
+		System.out.println(s);
+		List<RecipeVO> list = service.foodRecipeData(s);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
 }

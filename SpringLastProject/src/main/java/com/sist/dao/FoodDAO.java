@@ -52,4 +52,8 @@ public class FoodDAO {
 	public List<FoodVO> foodNameInfoData(String name) {
 		return mapper.foodNameInfoData(name);
 	}
+	
+	public List<RecipeVO> foodRecipeData(String title){
+		return mapper.foodRecipeData(title);
+	}
 }
