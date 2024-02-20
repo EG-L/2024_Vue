@@ -24,4 +24,5 @@ public class MemberVO {
 	private int enabled;
 	private String userId,userName,userPwd,sex,birthday,email,post,addr1,addr2,phone,content,reg_dbday,mod_dbday,last_dbday,phone1,phone2;
 	private Date regdate,modifydate,lastLogin;
+	private String authority,msg;
 }

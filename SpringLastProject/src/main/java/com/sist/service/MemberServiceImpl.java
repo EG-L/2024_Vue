@@ -32,4 +32,10 @@ public class MemberServiceImpl implements MemberService{
 		mDao.memberAuthorityInsert(userId);
 		
 	}
+
+	@Override
+	public MemberVO memberLogin(String userId, String userPwd) {
+		// TODO Auto-generated method stub
+		return mDao.memberLogin(userId, userPwd);
+	}
 }

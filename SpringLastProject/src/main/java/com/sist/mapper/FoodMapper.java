@@ -50,4 +50,11 @@ public interface FoodMapper {
 			+ "FROM food_menu_house ORDER BY hit DESC) "
 			+ "WHERE rownum<=12")
 	public List<FoodVO> foodHome12();
+	
+	@Select("SELECT fno,name FROM food_menu_house "
+			+ "WHERE length(name)>1 "
+			+ "ORDER BY fno")
+	public List<String> foodAllData();
+	
+	
 }

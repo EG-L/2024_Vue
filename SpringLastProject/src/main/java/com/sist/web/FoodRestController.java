@@ -1,10 +1,13 @@
 package com.sist.web;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.manager.FoodRecommandManager;
 import com.sist.service.*;
 import com.sist.vo.*;
 
@@ -85,6 +88,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class FoodRestController {
 	@Autowired
 	private FoodService service;
+	
+	@Autowired
+	private FoodRecommandManager mgr;
 	
 	@GetMapping(value = "find_vue.do",produces = "text/plain;charset=UTF-8")
 	public String food_find(int page,String fd) throws Exception{
@@ -205,5 +211,62 @@ public class FoodRestController {
 		String json = mapper.writeValueAsString(vo);
 		
 		return json;
+	}
+	
+	@GetMapping(value = "food_recommand_sub.do",produces = "text/plain;charset=UTF-8")
+	public String food_recommand(int no) throws Exception{
+		String[] menu1= {
+				"퇴근길","휴식","일/공부","집","카페","휴가/여행","드라이브","산책","운"
+		};
+		String[] menu2= {
+				"기분전환","외로움","슬픔","힘찬","이별","지침/힘듦","설렘","오후","위로","밤","새벽","저녁","아침","사랑","스트레스/짜증"};
+		String[] menu3= {
+				"밝은","신나는","편안한","따뜻한","그루브한","부드러운","로맨틱한","웅장한","매혹적인","영화음악","잔잔한"
+		};
+		String data = "봄 여름 가을 겨울 맑은날 추운날 흐린날 비오는날 더운날 안개낀날 눈오는날";
+		String[] menu4= new String[data.split(" ").length];
+		for(int i = 0;i<data.split(" ").length;i++) {
+			menu4[i] = data.split(" ")[i];
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = "";
+		
+		if(no==1) {
+			json = mapper.writeValueAsString(menu1);
+		}
+		else if(no==2) {
+			json = mapper.writeValueAsString(menu2);
+		}
+		else if(no==3) {
+			json = mapper.writeValueAsString(menu3);
+		}
+		else if(no==4) {
+			json = mapper.writeValueAsString(menu4);
+		}
+		
+		return json;
+	}
+	
+	@GetMapping(value = "food_recommand_data.do",produces = "text/plain;charset=UTF-8")
+	public String food_recommand_data(String fd) throws Exception{
+		List<String> list = mgr.newsFind(fd+" 맛집 추천");
+		
+		List<String> fList = service.foodAllData();
+		
+		Pattern[] p = new Pattern[fList.size()];
+		/*
+		 * 	1. 단어 => contains()
+		 *  2. 기호 : * (0이상)     맛있다, 맛있고 , 맛있는 => 맛*
+		 *           + (1이상)     맛+
+		 *           ? (0,1)
+		 *           | (선택)
+		 *           . 임의의 한글자 맛.
+		 * */
+		
+		Matcher[] m = new Matcher[fList.size()];
+		// 초기화 => 정규식
+		
+		return "";
 	}
 }

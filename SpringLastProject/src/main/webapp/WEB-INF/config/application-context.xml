@@ -15,6 +15,13 @@
 	
 	<!-- 사용자 정의 클래스 등록 -->
 	<context:component-scan base-package="com.sist.*"/>
+	<mvc:annotation-driven/>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/member/login.do"/>
+			<bean id="autoLoginInterceptor" class="com.sist.interceptor.AutoLoginIntercepter"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<!-- ViewResolver 등록 -->
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
