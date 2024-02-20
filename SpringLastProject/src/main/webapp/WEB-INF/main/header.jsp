@@ -15,8 +15,9 @@
     </div>
     <div class="fl_right">
       <ul class="inline">
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+      	<c:if test="${sessionScope.userId!=null }">
+         	<li><i class="fa fa-phone"></i>${sessionScope.userName }(${sessionScope.authority=="ROLE_ADMIN"?'관리자':'일반사용자' })님 로그인되었습니다.</li>
+         </c:if>
       </ul>
     </div>
   </header>
@@ -57,7 +58,7 @@
           <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
         </ul>
       </li>
-      <li><a href="#">실시간 채팅</a></li>
+      <li><a href="../chat/chat.do">실시간 채팅</a></li>
       <li><a href="#">마이페이지</a></li>
       <c:if test="${sessionScope.userId==null }">
       	<li class="nav navbar-nav navbar-right"><a href="../member/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -67,15 +68,6 @@
       </c:if>
     </ul>
   </nav>
-  <div class="wrapper row1">
-	  <header id="header" class="clear"> 
-	    <div class="fl_right">
-	      <ul class="inline">
-	        <li><i class="fa fa-phone"></i>${sessionScope.userName }(${sessionScope.authority=="ROLE_ADMIN"?'관리자':'일반사용자' })님 로그인되었습니다.</li>
-	      </ul>
-	    </div>
-	  </header>
-	</div>
 </div>
 </body>
 </html>
