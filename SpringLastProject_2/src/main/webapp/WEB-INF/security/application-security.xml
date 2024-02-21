@@ -26,6 +26,7 @@
 			password-parameter="userPwd"
 			default-target-url="/main/main.do"
 			always-use-default-target="false"
+			
 		/>
 		<!-- 
 			@GetMapping("member/login.do")

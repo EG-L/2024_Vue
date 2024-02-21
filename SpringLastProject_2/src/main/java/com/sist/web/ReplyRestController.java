@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.ReplyService;
+import com.sist.vo.MemberVO;
 import com.sist.vo.ReplyVO;
 
+import java.security.Principal;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -29,9 +31,10 @@ public class ReplyRestController {
 	}
 	
 	@PostMapping(value="recipe/reply_insert_vue.do",produces = "text/plain;charset=UTF-8")
-	public String reply_insert(ReplyVO vo,HttpSession session) throws Exception{
-		String userId = (String)session.getAttribute("userId");
-		String userName = (String)session.getAttribute("userName");
+	public String reply_insert(ReplyVO vo,Principal p) throws Exception{
+		String userId = p.getName();
+		MemberVO mvo = rService.memberInfoData(userId);
+		String userName = mvo.getUserName();
 		vo.setUserId(userId);
 		vo.setUserName(userName);
 		//rno,msg

@@ -24,4 +24,7 @@ public class ReplyDAO {
 	public void replyDelete(int no) {
 		mapper.replyDelete(no);
 	}
+	public MemberVO memberInfoData(String userId) {
+		return mapper.memberInfoData(userId);
+	}
 }

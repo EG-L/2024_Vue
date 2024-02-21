@@ -28,4 +28,9 @@ public interface ReplyMapper {
 	@Delete("DELETE FROM projectRecipeReply "
 			+ "WHERE no=#{no}")
 	public void replyDelete(int no);
+	
+	//사용자 정보 읽기
+	@Select("SELECT userId,userName FROM projectMember "
+			+ "WHERE userId=#{userId}")
+	public MemberVO memberInfoData(String userId);
 }

@@ -14,7 +14,7 @@
 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
 		p:driverClassName="#{db['driver']}"
 		p:url="#{db['url']}"
-		p:username="#{db['name']}"
+		p:username="#{db['username']}"
 		p:password="#{db['password']}"
 		p:maxActive="#{db['maxActive']}"
 		p:maxIdle="#{db['maxIdle']}"
