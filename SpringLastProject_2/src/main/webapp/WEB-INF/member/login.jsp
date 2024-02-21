@@ -52,6 +52,9 @@
 	  						</td>
 	  					</tr>
 	  					<tr>
+	  						<td colspan="2" class="text-center" style="color:red">${message }</td>
+	  					</tr>
+	  					<tr>
 	  						<td colspan="2" class="text-center inline">
 	  							<input type="button" value="로그인" class="btn-danger btn-sm" id="logBtn">
 	  							<input type="button" value="취소" class="btn-danger btn-sm" onclick="javascript:history.back()">

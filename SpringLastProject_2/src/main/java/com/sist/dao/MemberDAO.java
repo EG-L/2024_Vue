@@ -44,4 +44,14 @@ public class MemberDAO {
 		
 		return dbVO;
 	}
+	public MemberVO memberSessionData(String userId) {
+		return mapper.memberSessionData(userId);
+	}
+	public void lastLoginUpdate(String userId) {
+		mapper.lastLoginUpdate(userId);
+	}
+	
+	public MemberVO memberInfo(String userId) {
+		return mapper.memberInfo(userId);
+	}
 }

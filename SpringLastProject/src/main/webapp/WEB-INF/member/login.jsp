@@ -14,42 +14,70 @@
 		width: 400px;
 	}
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#logBtn').click(function(){
+			let id = $('#id').val();
+			let pwd = $('#pwd').val();
+			if(id.trim()===''){
+				$('#id').focus();
+				
+				return;
+			}
+			if(pwd.trim()===''){
+				$('#pwd').focus();
+				return;
+			}
+			
+			$('#frm').submit();
+		})
+	})
+</script>
 </head>
 <body>
 	<div class="wrapper row3" id="loginApp">
   		<main class="container clear">
   			<h2 class="sectiontitle">로그인</h2>
   			<div class="row row1">
-  				<table class="table">
-  					<tr>
-  						<td width=20% class="text-right">ID</td>
-  						<td width=80%>
-  							<input type="text" name="id" class="input-sm" ref=id v-model="id">
-  						</td>
-  					</tr>
-  					<tr>
-  						<td width=20% class="text-right">Password</td>
-  						<td width=80%>
-  							<input type="password" name="pwd" class="input-sm" ref=pwd v-model="pwd">
-  						</td>
-  					</tr>
-  					<tr>
-  						<td colspan="2" class="inline">
-  							<input type="checkbox" ref="ck" v-model="ck">ID저장
-  							<!-- true/false -->
-  						</td>
-  					</tr>
-  					<tr>
-  						<td colspan="2" class="text-center inline">
-  							<input type="button" value="로그인" class="btn-danger btn-sm" @click="login()">
-  							<input type="button" value="취소" class="btn-danger btn-sm" onclick="javascript:history.back()">
-  						</td>
-  					</tr>
-  				</table>
+  				<form method="POST" action="../member/login.do" id="frm">
+	  				<table class="table">
+	  					<tr>
+	  						<td width=20% class="text-right">ID</td>
+	  						<td width=80%>
+	  							<input type="text" name="userId" class="input-sm" id="id">
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td width=20% class="text-right">Password</td>
+	  						<td width=80%>
+	  							<input type="password" name="userPwd" class="input-sm" id="pwd">
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td colspan="2" class="inline">
+	  							<input type="checkbox" name="remember-me">자동 로그인
+	  							<!-- true/false -->
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td colspan="2" class="inline">
+	  							<span style="color:red;">${message}</span>
+	  							<!-- true/false -->
+	  						</td>
+	  					</tr>
+	  					<tr>
+	  						<td colspan="2" class="text-center inline">
+	  							<input type="button" value="로그인" class="btn-danger btn-sm" id="logBtn">
+	  							<input type="button" value="취소" class="btn-danger btn-sm">
+	  						</td>
+	  					</tr>
+	  				</table>
+  				</form>
   			</div>
   		</main>
   	</div>
-  	<script>
+  	<!-- <script>
   		let loginApp = Vue.createApp({
   			data(){
   				return{
@@ -103,6 +131,6 @@
   				}
   			}
   		}).mount('#loginApp')
-  	</script>
+  	</script> -->
 </body>
 </html>

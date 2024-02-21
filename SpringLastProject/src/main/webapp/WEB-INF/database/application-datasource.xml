@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-	<util:properties id="db" location="/WEB-INF/config/db.properties"/>
+	<util:properties id="db" location="/WEB-INF/database/db.properties"/>
 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
 		p:driverClassName="#{db['driver']}"
 		p:url="#{db['url']}"

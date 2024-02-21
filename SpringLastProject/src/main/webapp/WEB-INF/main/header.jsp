@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="principal"/>
+	</sec:authorize>
 	<div class="wrapper row1">
   <header id="header" class="clear"> 
     <div id="logo" class="fl_left">
@@ -15,8 +19,11 @@
     </div>
     <div class="fl_right">
       <ul class="inline">
-      	<c:if test="${sessionScope.userId!=null }">
-         	<li><i class="fa fa-phone"></i>${sessionScope.userName }(${sessionScope.authority=="ROLE_ADMIN"?'관리자':'일반사용자' })님 로그인되었습니다.</li>
+      	<c:if test="${principal.username!=null }">
+         	<li><i class="fa fa-phone"></i>${principal.username }(
+         	<sec:authorize access="hasRole('ROLE_ADMIN')">관리자</sec:authorize>
+         	<sec:authorize access="hasRole('ROLE_USER')">일반사용자</sec:authorize>
+         	)님 로그인되었습니다.</li>
          </c:if>
       </ul>
     </div>
@@ -59,11 +66,16 @@
         </ul>
       </li>
       <li><a href="../chat/chat.do">실시간 채팅</a></li>
-      <li><a href="#">마이페이지</a></li>
-      <c:if test="${sessionScope.userId==null }">
+      <sec:authorize access="hasRole('ROLE_USER')">
+      	<li><a href="#">마이페이지</a></li>
+      </sec:authorize>
+      <sec:authorize access="hasRole('ROLE_ADMIN')">
+      	<li><a href="#">관리자페이지</a></li>
+      </sec:authorize>
+      <c:if test="${principal.username==null }">
       	<li class="nav navbar-nav navbar-right"><a href="../member/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </c:if>
-      <c:if test="${sessionScope.userId!=null }">
+      <c:if test="${principal.username!=null }">
       	<li class="nav navbar-nav navbar-right"><a href="../member/logout.do"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </c:if>
     </ul>
