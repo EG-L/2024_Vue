@@ -1,0 +1,6 @@
+pom.properties
+db.properties
+*/target/*
+/build/
+MANIFEST.MF
+pom.xml

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	
+	<context:component-scan base-package="com.sist.*"/>
+	
+	<http auto-config="true" use-expressions="true">
+		<csrf disabled="true"/><!-- 해킹 처리 : 사이트 위조(파밍) -->
+		<intercept-url pattern="/member/**" access="permitAll"/>
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/user/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/**" access="permitAll"/>
+		<intercept-url pattern="/member/login.do" access="permitAll"/>
+		<!-- session 관리 : Principal 
+			 Principal => UserDetail => username,authority
+			                            => id
+			 public class CustomUserDetails extends UserDetails
+			 {
+			 	private String username,id,password...
+			 }
+		-->
+		<form-login login-page="/member/login.do"
+			login-processing-url="/member/login.do"
+			username-parameter="userId"
+			password-parameter="userPwd"
+			default-target-url="/main/main.do"
+			always-use-default-target="false"
+			authentication-failure-handler-ref="loginFailHandler"
+			authentication-success-handler-ref="loginSuccessHandler"
+		/>
+		<remember-me data-source-ref="ds"
+			token-validity-seconds="86400"
+		/>
+		<logout logout-url="/member/logout.do"
+			invalidate-session="true"
+			logout-success-url="/main/main.do"
+			delete-cookies="remember-me,JSESSION_ID"
+		/>
+	</http>
+	<jdbc-user-service data-source-ref="ds"
+		id="userService"
+		users-by-username-query="SELECT userId as username,userPwd as password,enabled FROM projectMember WHERE userId=?"
+		authorities-by-username-query="SELECT userId as username,authority FROM projectAuthority WHERE userId=?"
+	/>
+	<authentication-manager>
+		<authentication-provider user-service-ref="userService">
+			<password-encoder ref="bcryptEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
+	
+	<beans:bean id="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
+	/>
+	
+	<beans:bean id="loginSuccessHandler" class="com.sist.security.LoginSuccessHandler">
+		<beans:property name="defaultUrl" value="/main/main.do"/>
+	</beans:bean>
+	<beans:bean id="loginFailHandler" class="com.sist.security.LoginFailHandler">
+		<beans:property name="defaultFailerUrl" value="/member/login.do?login_error"/>
+	</beans:bean>
+</beans:beans>
