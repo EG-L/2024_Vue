@@ -5,8 +5,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-
+	<div class="wrapper row3" id="adminApp">
+  		<main class="container clear">
+  		<h2 class="sectiontitle">예약 현황</h2>
+  			
+  		</main>
+  	</div>
+  	<script>
+  	/* 
+  		data() => useState()
+  		mounted() => useEffect()
+  		methods() => function
+  	*/
+  		let adminApp = Vue.createApp({
+  			data(){
+  				return{
+  					reserve_list:[]
+  				}
+  			},
+  			mounted(){
+  				axios.get("../reserve/reserve_admin_vue.do").then(response=>{
+  					console.log(response.data)
+  					this.reserve_list = response.data
+  				})
+  			},
+  			methods:{
+  				//승인 버튼 => UPDATE , Mail
+  			}
+  		}).mount('#adminApp')
+  	</script>
 </body>
 </html>

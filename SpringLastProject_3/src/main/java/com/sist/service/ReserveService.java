@@ -9,4 +9,5 @@ public interface ReserveService {
 	public List<FoodVO> foodReserveData(String type);
 	public List<ReserveVO> reserveMypageData(String userId);
 	public void foodReserveInsert(ReserveVO vo);
+	public void reserveCancel(int rno);
 }

@@ -21,4 +21,8 @@ public class ReserveDAO {
 	public void foodReserveInsert(ReserveVO vo) {
 		mapper.foodReserveInsert(vo);
 	}
+	
+	public void reserveCancel(int rno) {
+		mapper.reserveCancel(rno);
+	}
 }

@@ -46,4 +46,27 @@ public class ReserveRestController {
 		}
 		return result;
 	}
+	
+	@GetMapping(value = "reserve/mypage_list_vue.do",produces = "text/plain;charset=UTF-8;")
+	public String mypage_list(HttpSession session) throws Exception{
+		String userId = (String)session.getAttribute("userId");
+		List<ReserveVO> list = rService.reserveMypageData(userId);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	@GetMapping(value = "reserve/reserve_cancel_vue.do",produces = "text/plain;charset=UTF-8;")
+	public String reserve_cancel(int rno) {
+		String result="";
+		try {
+			result="yes";
+			rService.reserveCancel(rno);
+		} catch (Exception e) {
+			// TODO: handle exception
+			result="no";
+		}
+		
+		return result;
+	}
 }

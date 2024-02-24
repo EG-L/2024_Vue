@@ -2,6 +2,7 @@ package com.sist.mapper;
 import com.sist.vo.*;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -28,4 +29,8 @@ public interface ReserveMapper {
 			+ "WHERE r.fno=f.fno AND userId=#{userId} "
 			+ "ORDER BY rno DESC")
 	public List<ReserveVO> reserveMypageData(String userId);
+	
+	@Delete("DELETE FROM reserve "
+			+ "WHERE rno=#{rno}")
+	public void reserveCancel(int rno);
 }

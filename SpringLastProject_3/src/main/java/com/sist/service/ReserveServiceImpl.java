@@ -39,4 +39,10 @@ public class ReserveServiceImpl implements ReserveService{
 		rDao.foodReserveInsert(vo);
 	}
 
+	@Override
+	public void reserveCancel(int rno) {
+		// TODO Auto-generated method stub
+		rDao.reserveCancel(rno);
+	}
+
 }
