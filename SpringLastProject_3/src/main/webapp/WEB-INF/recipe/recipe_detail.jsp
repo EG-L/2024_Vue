@@ -162,6 +162,7 @@
   				}
   			},
   			mounted(){
+  				console.log(this.sessionId)
   				axios.get('../recipe/recipe_detail_vue.do',{
   					params:{
   						no:this.no
